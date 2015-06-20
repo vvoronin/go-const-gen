@@ -9,12 +9,13 @@ import (
 )
 
 func main() {
-	var input, output, typename, pack string
+	var input, output, typename, pack, vartype string
 	spliter := regexp.MustCompile(`\s+`)
 	flag.StringVar(&input, "i", "", "input file")
 	flag.StringVar(&output, "o", "", "output go file")
 	flag.StringVar(&typename, "type", "", "type name")
 	flag.StringVar(&pack, "package", "", "package name")
+	flag.StringVar(&vartype, "vartype", "int", "package name")
 	flag.Parse()
 	
 	input_file, err := os.Open(input)	
@@ -35,7 +36,7 @@ func main() {
 	
 	output_stream.WriteString(`package ` + pack + "\n");
 	output_stream.WriteString("\n\n");
-	output_stream.WriteString(`type ` + typename + " int\n");
+	output_stream.WriteString(`type ` + typename + " " +vartype+"\n");
 	output_stream.WriteString("const ( \n");
 	
 	for input_stream.Scan() {
